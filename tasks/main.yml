@@ -1,0 +1,9 @@
+---
+- name: Create .kube directory
+  file:
+    state: directory
+    path: "{{ desktop_user_vars.dir }}/.kube"
+- name: Create config
+  copy:
+    content: "{{ kubeconfig | to_nice_yaml(indent=2) }}"
+    dest: "{{ desktop_user_vars.dir }}/.kube/config"
