@@ -3,7 +3,9 @@
   file:
     state: directory
     path: "{{ desktop_user_vars.dir }}/.kube"
+    mode: 0700
 - name: Create config
   copy:
     content: "{{ kubeconfig | to_nice_yaml(indent=2) }}"
     dest: "{{ desktop_user_vars.dir }}/.kube/config"
+    mode: 0600
