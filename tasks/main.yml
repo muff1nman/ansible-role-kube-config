@@ -10,6 +10,7 @@
     dest: "{{ desktop_user_vars.dir }}/.kube/config"
     mode: 0600
   when: kubeconfig is defined
+  no_log: true
 - name: Create kubie configs directory
   file:
     state: directory
@@ -23,3 +24,4 @@
     mode: 0600
   loop: "{{ kubeconfigs | dict2items }}"
   when: kubeconfigs is defined
+  no_log: true
