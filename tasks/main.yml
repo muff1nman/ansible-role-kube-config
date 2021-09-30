@@ -9,3 +9,17 @@
     content: "{{ kubeconfig | to_nice_yaml(indent=2) }}"
     dest: "{{ desktop_user_vars.dir }}/.kube/config"
     mode: 0600
+  when: kubeconfig is defined
+- name: Create kubie configs directory
+  file:
+    state: directory
+    path: "{{ desktop_user_vars.dir }}/.kube/configs"
+    mode: 0700
+  when: kubeconfigs is defined
+- name: Create kubie config
+  copy:
+    content: "{{ item.value | to_nice_yaml(indent=2) }}"
+    dest: "{{ desktop_user_vars.dir }}/.kube/configs/{{ item.key }}"
+    mode: 0600
+  loop: "{{ kubeconfigs | dict2items }}"
+  when: kubeconfigs is defined
